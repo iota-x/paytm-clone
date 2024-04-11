@@ -1,7 +1,7 @@
 export const Appbar = () => {
-    return <div className="shadow h-14 flex justify-between">
-        <div className="flex flex-col justify-center h-full ml-4">
-            PayTM App
+    return <div className="box-decoration-slice bg-gradient-to-r from-blue-800 to-blue-500 text-white px-2 shadow h-16 flex justify-between">
+        <div className="flex flex-col justify-center h-full ml-4 font-bold">
+            Vi-Pay 
         </div>
         <div className="flex">
             <div className="flex flex-col justify-center h-full mr-4">
