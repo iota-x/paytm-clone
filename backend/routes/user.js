@@ -140,4 +140,16 @@ router.get("/bulk", async (req, res) => {
     })
 })
 
+router.get("/me", authMiddleware, (req, res) => { // needs implementation but later
+    try {
+        res.json({
+            loggedIn: true,
+            userId: req.userId // leaving it here for now will look it back later
+        });
+    } catch (error) {
+        console.error("Error while processing /me endpoint:", error);
+        res.status(500).json({ error: "Internal server error" });
+    }
+});
+
 module.exports = router;

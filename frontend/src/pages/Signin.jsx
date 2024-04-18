@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { BottomWarning } from "../components/BottomWarning";
 import { Button } from "../components/Button";
 import { Heading } from "../components/Heading";
@@ -14,8 +14,16 @@ export const Signin = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token !== null && token !== "null") {
+      // Redirecting to dashboard if token exists and is not null
+      navigate("/dashboard");
+    }
+  }, [navigate]);
+
   const handleSignIn = async () => {
-    setLoading(true); // Set loading to true when sign-in process starts
+    setLoading(true); // Setting loading to true when sign-in process starts
     try {
       const response = await axios.post("http://localhost:3000/api/v1/user/signin", {
         username,
@@ -28,7 +36,7 @@ export const Signin = () => {
       setError("Invalid email or password. Please try again.");
       alert("Invalid email or password. Please try again.");
     } finally {
-      setLoading(false); // Set loading to false when sign-in process ends (whether success or error)
+      setLoading(false); // Setting loading to false when sign-in process ends (whether success or error)
     }
   };
 

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { BottomWarning } from "../components/BottomWarning";
 import { Button } from "../components/Button";
 import { Heading } from "../components/Heading";
@@ -16,8 +16,16 @@ export const Signup = () => {
     const [error, setError] = useState("");
     const navigate = useNavigate();
 
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        if (token !== null && token !== "null") {
+          // Redirecting to dashboard if token exists and is not null
+          navigate("/dashboard");
+        }
+      }, [navigate]);
+
     const handleSignUp = async () => {
-        setLoading(true); // Set loading to true when sign-up process starts
+        setLoading(true); // Setting loading to true when sign-up process starts
         try {
             const response = await axios.post("http://localhost:3000/api/v1/user/signup", {
                 username,
@@ -32,7 +40,7 @@ export const Signup = () => {
             setError("Error signing up. Please try again.");
             alert("Error signing up. Please try again.");
         } finally {
-            setLoading(false); // Set loading to false when sign-up process ends (whether success or error)
+            setLoading(false); // Setting loading to false when sign-up process ends (whether success or error)
         }
     };
 
